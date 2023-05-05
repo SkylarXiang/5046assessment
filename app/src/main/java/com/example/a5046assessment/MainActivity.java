@@ -1,6 +1,8 @@
 package com.example.a5046assessment;
 
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.squareup.picasso.Picasso;
+
+
 
 public class MainActivity extends AppCompatActivity {
     private SearchView searchView;
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         recipeAdapter = new RecipeAdapter(new ArrayList<>());
         recyclerView.setAdapter(recipeAdapter);
 
+        getRandomRecipe();
+
     }
 
     private void searchRecipes(String query) {
@@ -76,4 +83,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void getRandomRecipe() {
+        Call<RecipesResponse> call = theMealDBApi.getRandomRecipe();
+        call.enqueue(new Callback<RecipesResponse>() {
+            @Override
+            public void onResponse(Call<RecipesResponse> call, Response<RecipesResponse> response) {
+                if (response.isSuccessful()) {
+                    List<Recipe> recipes = response.body().getMeals();
+                    if (recipes != null && !recipes.isEmpty()) {
+                        // Display the recipe in your UI
+                        Recipe recipe = recipes.get(0);
+                        displayRandomRecipe(recipe);
+                    }
+                } else {
+                    // Handle the error
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RecipesResponse> call, Throwable t) {
+                // Handle the error
+            }
+        });
+    }
+
+    private void displayRandomRecipe(Recipe recipe) {
+        ImageView imageView = findViewById(R.id.imageView_recipe);
+        TextView textView = findViewById(R.id.textView_recipe_name);
+
+        Picasso.get()
+                .load(recipe.getStrMealThumb())
+                .into(imageView);
+
+        textView.setText(recipe.getStrMeal());
+    }
+
+
 }

@@ -9,4 +9,7 @@ public interface TheMealDBApi {
     @GET("search.php")
     Call<RecipesResponse> searchRecipes(@Query("s") String query);
 
+    @GET("random.php")
+    Call<RecipesResponse> getRandomRecipe();
+
 }
