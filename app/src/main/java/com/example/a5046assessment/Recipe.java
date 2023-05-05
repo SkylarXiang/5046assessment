@@ -5,5 +5,8 @@ public class Recipe {
     private String strMeal;
     private String strMealThumb;
 
-    // Add getters and setters here
+    public String getStrMeal() {
+        return strMeal;
+    }
+
 }

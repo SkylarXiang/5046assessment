@@ -1,6 +1,8 @@
 package com.example.a5046assessment;
 
 import android.os.Bundle;
+
+import java.util.ArrayList;
 import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -9,10 +11,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
     private SearchView searchView;
     private TheMealDBApi theMealDBApi;
+    private RecyclerView recyclerView;
+    private RecipeAdapter recipeAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        recipeAdapter = new RecipeAdapter(new ArrayList<>());
+        recyclerView.setAdapter(recipeAdapter);
+
     }
 
     private void searchRecipes(String query) {
@@ -49,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<Recipe> recipes = response.body().getMeals();
                     // Handle the list of recipes here, e.g., display them in a RecyclerView
+                    recipeAdapter.setRecipes(recipes);
                 } else {
                     // Handle the error
                 }
