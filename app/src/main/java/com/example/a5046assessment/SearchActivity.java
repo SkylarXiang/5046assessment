@@ -39,7 +39,8 @@ public class SearchActivity extends AppCompatActivity {
         theMealDBApi = retrofit.create(TheMealDBApi.class);
 
         searchView = findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchRecipes(query);

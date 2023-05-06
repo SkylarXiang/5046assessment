@@ -2,7 +2,7 @@
     <string name="app_name">5046assessment</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dashboard">shoppingcart</string>
+    <string name="title_notifications">reportgraph</string>
     <string name="mapbox_access_token">pk.eyJ1IjoieGlhb3hpZ3VhNTk5IiwiYSI6ImNsaDhrdHlzbjA5cXUzbG1obmV4YzhycWMifQ.72gK2oNzXMj-ry8brbjF4A</string>
 </resources>
