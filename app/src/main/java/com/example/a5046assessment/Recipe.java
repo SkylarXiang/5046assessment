@@ -6,11 +6,17 @@ public class Recipe implements Serializable {
     private String strMeal;
     private String strMealThumb;
 
+    private String strInstructions;
+
     public String getStrMeal() {
         return strMeal;
     }
 
     public String getStrMealThumb() {
         return strMealThumb;
+    }
+
+    public String getStrInstructions(){
+        return strInstructions;
     }
 }

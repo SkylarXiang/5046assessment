@@ -25,5 +25,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         Picasso.get()
                 .load(recipe.getStrMealThumb())
                 .into(binding.Image);
+
+        binding.Instruction.setText("Cooking instructions: " + recipe.getStrInstructions());
     }
 }

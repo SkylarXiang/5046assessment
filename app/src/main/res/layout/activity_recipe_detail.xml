@@ -34,4 +34,19 @@
         app:layout_constraintTop_toBottomOf="@+id/Name"
         app:layout_constraintVertical_bias="1.0"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/Instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="193dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="194dp"
+        android:layout_marginBottom="300dp"
+        android:text="asd"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Image" />
 </androidx.constraintlayout.widget.ConstraintLayout>
