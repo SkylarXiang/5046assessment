@@ -66,7 +66,8 @@ public class SignupActivity extends AppCompatActivity {
                         else if (!address_text.matches("^\\S+\\s\\S+\\s\\S+\\s\\S+\\s\\S+\\s\\d+")) {
                             String msg = "Address is not in the right format\n e.g. 100 Swanston St, Melbourne, VIC 3000";
                             Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_SHORT).show();
-                        } else {
+                        }
+                        else {
                             registerUser(email_text, password_text);
                             storeUserInfo(name_text, address_text);
                         }

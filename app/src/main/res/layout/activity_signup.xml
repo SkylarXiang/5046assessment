@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" Create Account"
+        android:text=" Create\n Account"
         android:textSize="40sp"/>
 
     <EditText
@@ -43,7 +43,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Personal Details"
+        android:text=" Personal Details"
         android:textSize="35sp"/>
 
     <EditText
