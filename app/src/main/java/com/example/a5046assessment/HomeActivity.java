@@ -16,10 +16,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.a5046assessment.databinding.ActivityHomeBinding;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,6 +35,12 @@ public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
     private TheMealDBApi theRandomMealDBApi;
+
+    private RecyclerView recyclerView;
+
+    private  HomeRecipeAdapter adapter;
+
+    private List<Recipe> recipeList = new ArrayList<Recipe>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +75,19 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        getRandomRecipe();
+        //getRandomRecipe();
+
+        //trying to get more random
+        for(int i = 0; i<10; i++){
+            getMultiRandom();
+        }
+
+        recyclerView = findViewById(R.id.homeRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        adapter = new HomeRecipeAdapter(new ArrayList<>());
+        recyclerView.setAdapter(adapter);
     }
 
     private void getRandomRecipe() {
@@ -104,5 +125,28 @@ public class HomeActivity extends AppCompatActivity {
         textView.setText(recipe.getStrMeal());
     }
 
+    public void getMultiRandom(){
+        Call<RecipesResponse> call = theRandomMealDBApi.getRandomRecipe();
+        call.enqueue(new Callback<RecipesResponse>() {
+            @Override
+            public void onResponse(Call<RecipesResponse> call, Response<RecipesResponse> response) {
+                if(response.isSuccessful()){
+                    List<Recipe> recipes = response.body().getMeals();
+                    if(recipes != null && !recipes.isEmpty()){
+                        recipeList.add(recipes.get(0));
+                        adapter.setRecipes(recipeList);
+                    }
+                }
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RecipesResponse> call, Throwable t) {
+
+            }
+        });
+    }
 
 }
