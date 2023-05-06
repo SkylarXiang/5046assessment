@@ -63,10 +63,14 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_SHORT).
                                     show();
                         }
-                        else {
+                        else if (!address_text.matches("^\\S+\\s\\S+\\s\\S+\\s\\S+\\s\\S+\\s\\d+")) {
+                            String msg = "Address is not in the right format\n e.g. 100 Swanston St, Melbourne, VIC 3000";
+                            Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        } else {
                             registerUser(email_text, password_text);
                             storeUserInfo(name_text, address_text);
                         }
+                    }
                         /*
                         else {
                             if (!address_text.matches("")) {
@@ -79,7 +83,6 @@ public class SignupActivity extends AppCompatActivity {
                                 storeUserInfo(name_text, address_text);
                             }
                         } */
-                    }
                 }
             }
         });
