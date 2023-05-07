@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
+
     private void loginUser(String email_text, String password_text) {
         auth.signInWithEmailAndPassword(email_text, password_text).
                 addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -64,4 +67,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 }

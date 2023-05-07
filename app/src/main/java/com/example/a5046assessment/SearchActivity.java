@@ -39,8 +39,22 @@ public class SearchActivity extends AppCompatActivity {
         theMealDBApi = retrofit.create(TheMealDBApi.class);
 
         searchView = findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
-        {
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        recipeAdapter = new RecipeAdapter(new ArrayList<>());
+        recyclerView.setAdapter(recipeAdapter);
+
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchRecipes(query);
@@ -52,17 +66,8 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-
-        recipeAdapter = new RecipeAdapter(new ArrayList<>());
-        recyclerView.setAdapter(recipeAdapter);
-
-
-
     }
+
 
     private void searchRecipes(String query) {
         Call<RecipesResponse> call = theMealDBApi.searchRecipes(query);

@@ -34,29 +34,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
-    private TheMealDBApi theRandomMealDBApi;
 
-    private RecyclerView recyclerView;
 
-    private  HomeRecipeAdapter adapter;
 
-    private List<Recipe> recipeList = new ArrayList<Recipe>();
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.themealdb.com/api/json/v1/1/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        theRandomMealDBApi = retrofit.create(TheMealDBApi.class);
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -66,30 +60,20 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        Button buttonSearch = findViewById(R.id.button_search);
-        buttonSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        //getRandomRecipe();
 
-        //trying to get more random
-        for(int i = 0; i<10; i++){
-            getMultiRandom();
-        }
 
-        recyclerView = findViewById(R.id.homeRecycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-
-        adapter = new HomeRecipeAdapter(new ArrayList<>());
-        recyclerView.setAdapter(adapter);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Clear the recipeList to avoid duplicating recipes
+
+    }
+
+/*
     private void getRandomRecipe() {
         Call<RecipesResponse> call = theRandomMealDBApi.getRandomRecipe();
         call.enqueue(new Callback<RecipesResponse>() {
@@ -112,8 +96,8 @@ public class HomeActivity extends AppCompatActivity {
                 // Handle the error
             }
         });
-    }
-
+    }*/
+/*
     private void displayRandomRecipe(Recipe recipe) {
         ImageView imageView = findViewById(R.id.imageView_recipe);
         TextView textView = findViewById(R.id.textView_recipe_name);
@@ -124,29 +108,8 @@ public class HomeActivity extends AppCompatActivity {
 
         textView.setText(recipe.getStrMeal());
     }
+*/
 
-    public void getMultiRandom(){
-        Call<RecipesResponse> call = theRandomMealDBApi.getRandomRecipe();
-        call.enqueue(new Callback<RecipesResponse>() {
-            @Override
-            public void onResponse(Call<RecipesResponse> call, Response<RecipesResponse> response) {
-                if(response.isSuccessful()){
-                    List<Recipe> recipes = response.body().getMeals();
-                    if(recipes != null && !recipes.isEmpty()){
-                        recipeList.add(recipes.get(0));
-                        adapter.setRecipes(recipeList);
-                    }
-                }
-                else{
 
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RecipesResponse> call, Throwable t) {
-
-            }
-        });
-    }
 
 }
