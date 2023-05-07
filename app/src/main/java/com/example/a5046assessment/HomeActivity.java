@@ -36,17 +36,9 @@ public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
 
 
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -59,9 +51,6 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
-
-
 
     }
 
@@ -109,7 +98,6 @@ public class HomeActivity extends AppCompatActivity {
         textView.setText(recipe.getStrMeal());
     }
 */
-
 
 
 }
