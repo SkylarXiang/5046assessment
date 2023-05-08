@@ -1,6 +1,8 @@
 package com.example.a5046assessment;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,10 @@ import java.util.concurrent.Executors;
 
 public class RecipeDetailActivity extends AppCompatActivity {
     private ActivityRecipeDetailBinding binding;
+
+    private IngredientAdapter adapter;
+    private RecyclerView recyclerView;
+
 
 
     @Override
@@ -35,6 +41,14 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 .into(binding.Image);
 
         binding.Instruction.setText("Cooking instructions: " + recipe.getStrInstructions());
+
+        recipe.setIngredients();
+        recyclerView = findViewById(R.id.ingredientRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        adapter = new IngredientAdapter(recipe.getIngredients());
+        recyclerView.setAdapter(adapter);
+
 
 
         ImageButton myButton = findViewById(R.id.favorite_button);
