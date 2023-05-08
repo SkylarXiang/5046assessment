@@ -2,7 +2,6 @@ package com.example.a5046assessment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Database;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import com.example.a5046assessment.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     private ActivitySignupBinding binding;
@@ -36,7 +33,7 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(view);
 
         auth = FirebaseAuth.getInstance();
-        db = FirebaseDatabase.getInstance();
+        db = FirebaseDatabase.getInstance("https://assessment-ba210-default-rtdb.asia-southeast1.firebasedatabase.app/");
         dbRef = db.getReference();
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +77,8 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            registerUser(email_text, password_text);
+                            registerUser(email_text, password_text);;
+                            storeUserInfo(name_text, address_text);
                         }
                     }
                 }
@@ -89,7 +87,6 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void registerUser(String email_text, String password_text) {
-
         auth.createUserWithEmailAndPassword(email_text, password_text).
                 addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -110,5 +107,12 @@ public class SignupActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void storeUserInfo(String name_text, String address_text) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("Name", name_text);
+        hashMap.put("Address", address_text);
+        dbRef.child("User").setValue(hashMap);
     }
 }
