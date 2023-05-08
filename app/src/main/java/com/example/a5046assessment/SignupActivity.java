@@ -2,6 +2,7 @@ package com.example.a5046assessment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Database;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,13 +12,21 @@ import android.widget.Toast;
 
 import com.example.a5046assessment.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     private ActivitySignupBinding binding;
     private FirebaseAuth auth;
+    private FirebaseDatabase db;
+    private DatabaseReference dbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +36,8 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(view);
 
         auth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance();
+        dbRef = db.getReference();
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,32 +75,21 @@ public class SignupActivity extends AppCompatActivity {
                                     show();
                         }
                         else if (!address_text.matches("^\\S+\\s\\S+\\s\\S+\\s\\S+\\s\\S+\\s\\d+")) {
-                            String msg = "Address is not in the right format\n e.g. 100 Swanston St, Melbourne, VIC 3000";
+                            String msg = "Invalid address format\n " +
+                                    "e.g. 100 Swanston St, Melbourne, VIC 3000";
                             Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
                         else {
                             registerUser(email_text, password_text);
-                            storeUserInfo(name_text, address_text);
                         }
                     }
-                        /*
-                        else {
-                            if (!address_text.matches("")) {
-                                String msg = "Invalid Address";
-                                Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_SHORT).
-                                        show();
-                            }
-                            else {
-                                registerUser(email_text, password_text);
-                                storeUserInfo(name_text, address_text);
-                            }
-                        } */
                 }
             }
         });
     }
 
     private void registerUser(String email_text, String password_text) {
+
         auth.createUserWithEmailAndPassword(email_text, password_text).
                 addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -98,6 +98,7 @@ public class SignupActivity extends AppCompatActivity {
                             String msg = "Registration Successful";
                             Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_SHORT).
                                     show();
+
                             Intent intent = new Intent(SignupActivity.this,
                                     MainActivity.class);
                             startActivity(intent);
@@ -109,9 +110,5 @@ public class SignupActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
-
-    private void storeUserInfo(String name_text, String address_text) {
-
     }
 }
