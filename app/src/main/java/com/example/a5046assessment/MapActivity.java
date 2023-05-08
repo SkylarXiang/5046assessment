@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 
@@ -17,6 +19,9 @@ import com.mapbox.maps.plugin.annotation.AnnotationPluginImplKt;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManagerKt;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 public class MapActivity extends AppCompatActivity {
     private ActivityMapBinding binding;
@@ -32,6 +37,43 @@ public class MapActivity extends AppCompatActivity {
         binding.startMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String address = binding.addressEditText.getText().toString();
+                Geocoder geocoder = new Geocoder(MapActivity.this);
+                List<Address> addressList;
+                double longitude;
+                double latitude;
+                try {
+                    addressList = geocoder.getFromLocationName(address, 1);
+                    if (addressList != null) {
+                        longitude = addressList.get(0).getLongitude();
+                        latitude = addressList.get(0).getLatitude();
+
+                        binding.longitudeTextView.setText("Longitude: " + String.valueOf(longitude));
+                        binding.latitudeTextView.setText("Latitude: " + String.valueOf(latitude));
+
+                        final Point point = Point.fromLngLat(longitude, latitude);
+                        CameraOptions cameraPosition = new CameraOptions.Builder().zoom(13.0).center(point).build();
+                        binding.mapView.getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
+                            @Override
+                            public void onStyleLoaded(@NonNull Style style) {
+                                AnnotationPlugin annotationAPI = AnnotationPluginImplKt.
+                                        getAnnotations(binding.mapView);
+                                PointAnnotationManager pointAnnotationManager = PointAnnotationManagerKt.
+                                        createPointAnnotationManager(annotationAPI, binding.mapView);
+                                PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions()
+                                        .withPoint(com.mapbox.geojson.Point.fromLngLat(longitude, latitude))
+                                        .withIconImage(BitmapFactory.decodeResource(getResources(), R.drawable.red_marker));
+                                pointAnnotationManager.create(pointAnnotationOptions);
+                            }
+                        });
+                        binding.mapView.getMapboxMap().setCamera(cameraPosition);
+                    }
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                /*
                 double longitude = Double.parseDouble(binding.longitudeEditText.getText().toString());
                 double latitude = Double.parseDouble(binding.latitudeEditText.getText().toString());
 
@@ -51,6 +93,7 @@ public class MapActivity extends AppCompatActivity {
                     }
                 });
                 binding.mapView.getMapboxMap().setCamera(cameraPosition);
+                */
             }
         });
     }

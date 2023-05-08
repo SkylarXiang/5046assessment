@@ -5,26 +5,26 @@
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <EditText
+        android:id="@+id/addressEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter address"
+        android:textSize="30sp"/>
+
     <TextView
-        android:id="@+id/addressTextView"
+        android:id="@+id/longitudeTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Address will be displayed here"
-        android:textSize="25sp"/>
+        android:text=" Longitude"
+        android:textSize="30sp"/>
 
-    <EditText
-        android:id="@+id/longitudeEditText"
+    <TextView
+        android:id="@+id/latitudeTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Longitude"
-        android:textSize="25sp"/>
-
-    <EditText
-        android:id="@+id/latitudeEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Latitude"
-        android:textSize="25sp"/>
+        android:text=" Latitude"
+        android:textSize="30sp"/>
 
     <Button
         android:id="@+id/startMapButton"
