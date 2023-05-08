@@ -48,8 +48,8 @@ public class MapActivity extends AppCompatActivity {
                         longitude = addressList.get(0).getLongitude();
                         latitude = addressList.get(0).getLatitude();
 
-                        binding.longitudeTextView.setText("Longitude: " + String.valueOf(longitude));
-                        binding.latitudeTextView.setText("Latitude: " + String.valueOf(latitude));
+                        binding.longitudeTextView.setText("Lng: " + String.valueOf(longitude));
+                        binding.latitudeTextView.setText("Lat: " + String.valueOf(latitude));
 
                         final Point point = Point.fromLngLat(longitude, latitude);
                         CameraOptions cameraPosition = new CameraOptions.Builder().zoom(13.0).center(point).build();
