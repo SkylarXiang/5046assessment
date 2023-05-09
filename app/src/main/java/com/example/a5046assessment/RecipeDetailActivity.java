@@ -1,6 +1,7 @@
 package com.example.a5046assessment;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,6 +68,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         db.favoriteRecipeDao().addFavoriteRecipe(favoriteRecipe);
+
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

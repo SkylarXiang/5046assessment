@@ -14,7 +14,6 @@ public class FavoriteRecipe {
     public FavoriteRecipe() {
     }
 
-
     public int getId() {
         return id;
     }
