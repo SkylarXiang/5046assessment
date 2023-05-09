@@ -6,5 +6,7 @@
     <string name="title_notifications">reportgraph</string>
     <string name="mapbox_access_token">pk.eyJ1IjoieGlhb3hpZ3VhNTk5IiwiYSI6ImNsaDhrdHlzbjA5cXUzbG1obmV4YzhycWMifQ.72gK2oNzXMj-ry8brbjF4A</string>
     <string name="recipe_image">Recipe Image</string>
+    <string name="open">Open navigation drawer</string>
+    <string name="close">Close navigation drawer</string>
 
 </resources>
