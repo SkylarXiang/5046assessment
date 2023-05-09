@@ -72,28 +72,6 @@ public class MapActivity extends AppCompatActivity {
                 catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                /*
-                double longitude = Double.parseDouble(binding.longitudeEditText.getText().toString());
-                double latitude = Double.parseDouble(binding.latitudeEditText.getText().toString());
-
-                final Point point = Point.fromLngLat(longitude, latitude);
-                CameraOptions cameraPosition = new CameraOptions.Builder().zoom(13.0).center(point).build();
-                binding.mapView.getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
-                    @Override
-                    public void onStyleLoaded(@NonNull Style style) {
-                        AnnotationPlugin annotationAPI = AnnotationPluginImplKt.
-                                getAnnotations(binding.mapView);
-                        PointAnnotationManager pointAnnotationManager = PointAnnotationManagerKt.
-                                createPointAnnotationManager(annotationAPI, binding.mapView);
-                        PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions()
-                                .withPoint(com.mapbox.geojson.Point.fromLngLat(longitude, latitude))
-                                .withIconImage(BitmapFactory.decodeResource(getResources(), R.drawable.red_marker));
-                        pointAnnotationManager.create(pointAnnotationOptions);
-                    }
-                });
-                binding.mapView.getMapboxMap().setCamera(cameraPosition);
-                */
             }
         });
     }
