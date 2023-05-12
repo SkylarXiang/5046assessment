@@ -56,12 +56,12 @@ public class NotificationsFragment extends Fragment {
         favoriteRecipesLiveData.observe(getViewLifecycleOwner(), new Observer<List<FavoriteRecipe>>() {
             @Override
             public void onChanged(List<FavoriteRecipe> favoriteRecipes) {
-                List<String> name = new ArrayList<>();
+                List<String> area = new ArrayList<>();
                 for(FavoriteRecipe temp: favoriteRecipes){
-                    name.add(temp.getRecipeName());
+                    area.add(temp.getArea());
                 }
 
-                Map<String, Integer> count = count(name);
+                Map<String, Integer> count = count(area);
 
                 List<PieEntry> pieEntries = new ArrayList<>();
 
@@ -74,6 +74,8 @@ public class NotificationsFragment extends Fragment {
 
                 PieData pieData = new PieData(pieDataSet);
                 binding.pieChart.setData(pieData);
+
+                binding.pieChart.invalidate();
             }
         });
 

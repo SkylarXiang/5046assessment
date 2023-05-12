@@ -70,6 +70,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 FavoriteRecipe favoriteRecipe = new FavoriteRecipe();
                 favoriteRecipe.setRecipeName(recipe.getStrMeal());
                 favoriteRecipe.setImageUrl(recipe.getStrMealThumb());
+                favoriteRecipe.setArea(recipe.getStrArea());
 
                 // Add the favorite recipe to the Room database
                 AppDatabase db = AppDatabase.getInstance(RecipeDetailActivity.this);

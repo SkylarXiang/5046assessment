@@ -11,6 +11,7 @@ public class FavoriteRecipe {
     private String recipeName;
     private String imageUrl;
 
+    private String area;
     public FavoriteRecipe() {
     }
 
@@ -44,6 +45,14 @@ public class FavoriteRecipe {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getArea(){
+        return area;
+    }
+
+    public void setArea(String area){
+        this.area = area;
     }
 }
 
