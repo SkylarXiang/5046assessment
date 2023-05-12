@@ -8,5 +8,7 @@
     <string name="recipe_image">Recipe Image</string>
     <string name="open">Open navigation drawer</string>
     <string name="close">Close navigation drawer</string>
-
+    <string name="facebook_app_id">161678450194450</string>
+    <string name="facebook_login_protocol">fb161678450194450</string>
+    <string name="facebook_client_token">f38aaafb759496577a2ee00b54248bf5</string>
 </resources>

@@ -11,6 +11,8 @@ public class Recipe implements Serializable {
     private String strMeal;
     private String strMealThumb;
 
+    private String strArea;
+
     private String strInstructions;
 
     private String strIngredient1;
@@ -93,5 +95,9 @@ public class Recipe implements Serializable {
 
     public ArrayList<String> getIngredients(){
         return ingredients;
+    }
+
+    public String getStrArea(){
+        return strArea;
     }
 }

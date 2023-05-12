@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -50,7 +51,16 @@ public class RecipeDetailActivity extends AppCompatActivity {
         adapter = new IngredientAdapter(recipe.getIngredients());
         recyclerView.setAdapter(adapter);
 
-
+        ImageButton shareBtn = findViewById(R.id.share_button);
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecipeDetailActivity.this, FacebookShare.class);
+                intent.putExtra("recipeUrl",recipe.getStrMealThumb());
+                intent.putExtra("recipeName", recipe.getStrMeal());
+                startActivity(intent);
+            }
+        });
 
         ImageButton myButton = findViewById(R.id.favorite_button);
         myButton.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +70,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 FavoriteRecipe favoriteRecipe = new FavoriteRecipe();
                 favoriteRecipe.setRecipeName(recipe.getStrMeal());
                 favoriteRecipe.setImageUrl(recipe.getStrMealThumb());
+                favoriteRecipe.setArea(recipe.getStrArea());
 
                 // Add the favorite recipe to the Room database
                 AppDatabase db = AppDatabase.getInstance(RecipeDetailActivity.this);
