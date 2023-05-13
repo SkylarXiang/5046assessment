@@ -24,6 +24,9 @@
         <activity
             android:name=".SyncActivity"
             android:exported="false" />
+        <activity
+            android:name=".MapActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -38,7 +41,6 @@
             android:name=".ReportActivity"
             android:exported="false" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".MapActivity" />
         <activity android:name=".SignupActivity" />
         <activity
             android:name=".SearchActivity"
