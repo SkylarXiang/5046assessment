@@ -56,9 +56,8 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else if (id == R.id.nav_dashboard) {
                     navController.navigate(R.id.navigation_dashboard);
-                } else if (id == R.id.navigation_notifications) {
-                    Intent intent = new Intent(HomeActivity.this, ReportActivity.class);
-                    startActivity(intent);
+                } else if (id == R.id.nav_notifications){
+                    navController.navigate((R.id.navigation_notifications));
                 }
 
                 DrawerLayout drawer = binding.drawerLayout;
