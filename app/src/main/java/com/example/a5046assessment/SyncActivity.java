@@ -3,6 +3,7 @@ package com.example.a5046assessment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.Constraints;
@@ -32,6 +33,7 @@ public class SyncActivity extends AppCompatActivity {
                         .build();
                 WorkManager.getInstance().enqueue(workRequest);
                 Log.i("Message", "One-time Synchronisation Complete");
+                Toast.makeText(SyncActivity.this, "One-time Sync Complete", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -45,6 +47,7 @@ public class SyncActivity extends AppCompatActivity {
                         .build();
                 WorkManager.getInstance().enqueue(workRequest);
                 Log.i("Message", "Auto-Synchronisation per 24 Hours Starts");
+                Toast.makeText(SyncActivity.this, "Auto-sync Starts", Toast.LENGTH_SHORT).show();
             }
         });
     }
