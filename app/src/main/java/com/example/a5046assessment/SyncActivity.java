@@ -1,6 +1,7 @@
 package com.example.a5046assessment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class SyncActivity extends AppCompatActivity {
                         .setConstraints(Constraints.NONE)
                         .build();
                 WorkManager.getInstance().enqueue(workRequest);
+                Log.i("Message", "One-time Synchronisation Complete");
             }
         });
 
@@ -42,6 +44,7 @@ public class SyncActivity extends AppCompatActivity {
                         .setConstraints(Constraints.NONE)
                         .build();
                 WorkManager.getInstance().enqueue(workRequest);
+                Log.i("Message", "Auto-Synchronisation per 24 Hours Starts");
             }
         });
     }
