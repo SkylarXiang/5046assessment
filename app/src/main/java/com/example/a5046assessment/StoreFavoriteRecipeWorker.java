@@ -14,19 +14,19 @@ import java.util.HashMap;
 import java.util.List;
 
 public class StoreFavoriteRecipeWorker extends Worker {
+    private FavoriteRecipeDao dao;
 
     public StoreFavoriteRecipeWorker(@NonNull Context context,
                                      @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
+        AppDatabase db = AppDatabase.getInstance(context);
+        dao = db.favoriteRecipeDao();
     }
 
     @NonNull
     @Override
     public Result doWork() {
-
         try {
-            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-            FavoriteRecipeDao dao = db.favoriteRecipeDao();
             List<FavoriteRecipe> favoriteRecipeList = dao.getAllFavoriteRecipes().getValue();
 
             DatabaseReference dbRef = FirebaseDatabase.
@@ -38,13 +38,11 @@ public class StoreFavoriteRecipeWorker extends Worker {
                     String recipeId = favoriteRecipe.getRecipeId();
                     String recipeName = favoriteRecipe.getRecipeName();
                     String imageUrl = favoriteRecipe.getImageUrl();
-                    String area = favoriteRecipe.getArea();
 
                     HashMap<String, Object> hashMap = new HashMap<>();
                     hashMap.put("RecipeID", recipeId);
                     hashMap.put("RecipeName", recipeName);
                     hashMap.put("ImageURL", imageUrl);
-                    hashMap.put("Area", area);
                     dbRef.child("FavoriteRecipe").setValue(hashMap);
                 }
             }
