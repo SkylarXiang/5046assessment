@@ -21,9 +21,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.5046assessment"
         tools:targetApi="31">
+        <activity
+            android:name=".SyncActivity"
+            android:exported="false" />
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" tools:replace="android:value"/>
-        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token" tools:replace="android:value"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"
+            tools:replace="android:value" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token"
+            tools:replace="android:value" />
 
         <activity
             android:name=".ReportActivity"
@@ -52,9 +61,9 @@
             android:label="Facebook Share" />
 
         <provider
-            android:authorities="com.facebook.app.FacebookContentProvider161678450194450"
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentProvider161678450194450"
+            android:exported="true" />
     </application>
 
 </manifest>

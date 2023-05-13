@@ -62,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        binding.toSyncButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SyncActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void printKeyHash() {
