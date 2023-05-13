@@ -45,7 +45,7 @@ public class StoreFavoriteRecipeWorker extends Worker {
                     hashMap.put("RecipeID", recipeId);
                     hashMap.put("RecipeName", recipeName);
                     hashMap.put("ImageURL", imageUrl);
-                    dbRef.child("FavoriteRecipe").child(""+id).setValue(hashMap);
+                    dbRef.child("FavoriteRecipes").child("" + id).setValue(hashMap);
                     id++;
                 }
             }

@@ -25,6 +25,8 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseDatabase db;
     private DatabaseReference dbRef;
 
+    private static int ID = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,9 +112,10 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void storeUserInfo(String name_text, String address_text) {
+        ID++;
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("Name", name_text);
         hashMap.put("Address", address_text);
-        dbRef.child("User").setValue(hashMap);
+        dbRef.child("Users").child("" + ID).setValue(hashMap);
     }
 }
