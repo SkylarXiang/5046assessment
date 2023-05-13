@@ -27,13 +27,15 @@ public class StoreFavoriteRecipeWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            List<FavoriteRecipe> favoriteRecipeList = dao.getAllFavoriteRecipes().getValue();
+            List<FavoriteRecipe> favoriteRecipeList = dao.getFavoriteRecipeList();
 
             DatabaseReference dbRef = FirebaseDatabase.
                     getInstance("https://assessment-ba210-default-rtdb.asia-southeast1.firebasedatabase.app/").
                     getReference();
 
             if (favoriteRecipeList != null) {
+                int id = 1;
+
                 for (FavoriteRecipe favoriteRecipe : favoriteRecipeList) {
                     String recipeId = favoriteRecipe.getRecipeId();
                     String recipeName = favoriteRecipe.getRecipeName();
@@ -43,10 +45,10 @@ public class StoreFavoriteRecipeWorker extends Worker {
                     hashMap.put("RecipeID", recipeId);
                     hashMap.put("RecipeName", recipeName);
                     hashMap.put("ImageURL", imageUrl);
-                    dbRef.child("FavoriteRecipe").setValue(hashMap);
+                    dbRef.child("FavoriteRecipe").child(""+id).setValue(hashMap);
+                    id++;
                 }
             }
-
             return Result.success();
         }
 

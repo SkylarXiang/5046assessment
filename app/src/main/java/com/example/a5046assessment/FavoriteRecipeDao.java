@@ -19,4 +19,7 @@ public interface FavoriteRecipeDao {
 
     @Query("SELECT * FROM favorite_recipes")
     LiveData<List<FavoriteRecipe>> getAllFavoriteRecipes();
+
+    @Query("SELECT * FROM favorite_recipes")
+    List<FavoriteRecipe> getFavoriteRecipeList();
 }
