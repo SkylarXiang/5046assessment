@@ -1,22 +1,19 @@
 package com.example.a5046assessment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
-import com.example.a5046assessment.databinding.ActivityHomeBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-
-import android.view.MenuItem;
-
 import androidx.navigation.ui.NavigationUI;
 
-
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
+import com.example.a5046assessment.databinding.ActivityHomeBinding;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -40,15 +37,35 @@ public class HomeActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Setup NavigationView selection events here
-
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .setOpenableLayout(drawerLayout)  // Pass the drawer layout
+                .setOpenableLayout(drawerLayout)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        NavigationView navigationView = binding.navViewDrawer;
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int id = item.getItemId();
+
+                if (id == R.id.nav_home) {
+                    Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                } else if (id == R.id.nav_dashboard) {
+                    navController.navigate(R.id.navigation_dashboard);
+                } else if (id == R.id.navigation_notifications) {
+                    Intent intent = new Intent(HomeActivity.this, ReportActivity.class);
+                    startActivity(intent);
+                }
+
+                DrawerLayout drawer = binding.drawerLayout;
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
     }
 
     @Override
