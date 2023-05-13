@@ -4,16 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.a5046assessment.AppDatabase;
+import com.example.a5046assessment.BarFragment;
 import com.example.a5046assessment.FavoriteRecipe;
+import com.example.a5046assessment.PieFragment;
+import com.example.a5046assessment.R;
 import com.example.a5046assessment.Recipe;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
@@ -48,37 +55,32 @@ public class NotificationsFragment extends Fragment {
         final TextView textView = binding.textNotifications;
         notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
+        //replaceFragment(new PieFragment());
 
-        //get data from database
-        AppDatabase db = AppDatabase.getInstance(getContext());
-        LiveData<List<FavoriteRecipe>> favoriteRecipesLiveData = db.favoriteRecipeDao().getAllFavoriteRecipes();
+        List<String> list = new ArrayList<>();
+        list.add("Bar");
+        list.add(("Pie"));
 
-        favoriteRecipesLiveData.observe(getViewLifecycleOwner(), new Observer<List<FavoriteRecipe>>() {
+        final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, list);
+        binding.graphSpinner.setAdapter(spinnerAdapter);
+
+        binding.graphSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onChanged(List<FavoriteRecipe> favoriteRecipes) {
-                List<String> area = new ArrayList<>();
-                for(FavoriteRecipe temp: favoriteRecipes){
-                    area.add(temp.getArea());
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedGraph = parent.getItemAtPosition(position).toString();
+                if(selectedGraph.equals("Pie")){
+                    replaceFragment(new PieFragment());
                 }
-
-                Map<String, Integer> count = count(area);
-
-                List<PieEntry> pieEntries = new ArrayList<>();
-
-                for(Map.Entry<String, Integer> entry: count.entrySet()){
-                    pieEntries.add(new PieEntry(entry.getValue(), entry.getKey()));
+                else {
+                    replaceFragment(new BarFragment());
                 }
+            }
 
-                PieDataSet pieDataSet = new PieDataSet(pieEntries, "Data");
-                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-                PieData pieData = new PieData(pieDataSet);
-                binding.pieChart.setData(pieData);
-
-                binding.pieChart.invalidate();
             }
         });
-
         //test pie
 
         return root;
@@ -91,6 +93,13 @@ public class NotificationsFragment extends Fragment {
             map.put(s, (count == null) ? 1 : count + 1);
         }
         return map;
+    }
+
+    public void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.noti_fragment_container_view, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override
