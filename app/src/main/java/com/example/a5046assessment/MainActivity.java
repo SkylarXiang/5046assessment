@@ -27,10 +27,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        // commented out because not needed anymore after the key is inputted in facebook
-//        printKeyHash();
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -51,23 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 String email_text = binding.emailEditText.getText().toString();
                 String password_text = binding.passwordEditText.getText().toString();
                 loginUser(email_text, password_text);
-            }
-        });
-
-        // This
-        binding.toMapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        binding.toSyncButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SyncActivity.class);
-                startActivity(intent);
             }
         });
     }
