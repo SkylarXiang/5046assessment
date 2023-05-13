@@ -77,7 +77,7 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            registerUser(email_text, password_text);;
+                            registerUser(email_text, password_text);
                             storeUserInfo(name_text, address_text);
                         }
                     }
